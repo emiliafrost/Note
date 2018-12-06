@@ -40,3 +40,17 @@ if flag==True:
     dpt=case(name)
     print('you are: %s' % dpt)
 ```
+### file name: test2.ipynb, about tuple, list and dictionary
+```
+tup1=(1,2,3,4,5)
+tup2=('a','b','c','d')
+tup2=tup1[:2]+tup2+tup1[2:]
+sum=0
+
+for a in tup2:
+    print (a)
+    
+for b in range(len(tup2)):
+    sum = sum+b
+print (sum)
+```
