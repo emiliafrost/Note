@@ -76,6 +76,8 @@ with open("this.json", 'r') as f:
 ```
 ### three level menu, file name: menu3lvl.ipynb
 ```
+#we can add more function, use a while(True) loop, to check whether the customer want to quit. 
+#if customer input 'q', then break. if the customer input 'b', go back to the upper level.
 menu = {
     '1':{
         'chinese':{
