@@ -68,6 +68,7 @@ file.write(js)
 ```
 import json
 #read
+#read and write mush be put in 2 different modules, otherwise there will be errors when reading
 with open("this.json", 'r') as f:
     temp = json.load(f)
     print(temp)
