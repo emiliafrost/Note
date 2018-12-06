@@ -74,3 +74,66 @@ with open("this.json", 'r') as f:
     print(temp)
     print(temp['andy'])
 ```
+### three level menu, file name: menu3lvl.ipynb
+```
+menu = {
+    '1':{
+        'chinese':{
+            'a1':['AUD 12', 'AUD 15'],
+            'a2':['AUD 13', 'AUD 16']
+        },
+        'western':{
+            'b1':['AUD 12', 'AUD 15'],
+            'b2':['AUD 13', 'AUD 16']
+        }
+    },
+    '2':{
+        'chinese2':{
+            'aa1':['AUD 12', 'AUD 15'],
+            'aa2':['AUD 13', 'AUD 16']
+        },
+        'western2':{
+            'bb1':['AUD 12', 'AUD 15'],
+            'bb2':['AUD 13', 'AUD 16']
+        }
+    },
+    '3':{
+        'chinese3':{
+            'aaa1':['AUD 12', 'AUD 15'],
+            'aaa2':['AUD 13', 'AUD 16']
+        },
+        'western3':{
+            'bbb1':['AUD 12', 'AUD 15'],
+            'bbb2':['AUD 13', 'AUD 16']
+        }
+    }
+}
+
+current=menu
+for key in current:
+    print (key)
+lvl1=input ("please choose the number of people: ") #lvl1: num of people
+if lvl1=='1'or lvl1=='2'or lvl1=='3':
+    current=menu[lvl1]
+    temp=[]
+    for key in current:
+        print (key)
+        temp.append(key)
+    lvl2=input("please choosse the style of meal: ") #chinese or western
+    if temp.count(lvl2)>0:
+        current=menu[lvl1][lvl2]
+        temp=[]
+        for key in current:
+            print (key)
+            temp.append(key)
+        lvl3=input("please choosse the plan: ") #plan1 or plan2
+        if temp.count(lvl3)>0:
+            current=menu[lvl1][lvl2][lvl3]
+            print (current)
+        else:
+            print ("error in level 3 menu")
+    else:
+        print("error in level 2 menu" )
+else:
+    print ("error in level 1 menu")
+```
