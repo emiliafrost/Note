@@ -69,7 +69,7 @@ file.write(js)
 import json
 #read
 with open("this.json", 'r') as f:
-    temp = json.loads(f.read())
+    temp = json.load(f)
     print(temp)
     print(temp['andy'])
 ```
