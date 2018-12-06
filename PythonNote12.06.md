@@ -1,18 +1,20 @@
 ### file name: test.ipynb
 ```
-#user input username and invisible password
-#if the username and password is correct
-#then the system output hello!
-
+#user input username and invisible password to sign in
+#if it is correct, show hello
+#if user input wrong information for 3 times, system locked.
 #written by frostime
-
-#如果首行缩进错误，就会报错
 
 import getpass
 name = input ("please input your username: ")
-psw = getpass.getpass("please input your password: ")
-
-#below is a switch-case function using a dictionary method
+depart = {
+        'emy': 'admin',
+        'bob': 'member',
+        'cat': 'newer',
+}
+count=0
+flag=0
+#this is a switch-case function, saving user's information
 def login(var):
     return {
     'emy': '1234',
@@ -20,24 +22,22 @@ def login(var):
     'cat': '3456'
     }.get(var,'invalid username or password')
 
-rpsw=login(name) #right passwerd = rpsw
-if psw==rpsw:
-    print('hello! %s' % name) #comparing to using "+", this statement saves more space
-    flag=True
+while count<3:
+    psw = getpass.getpass("please input your password: ")
+    rpsw=login(name) #right passwerd = rpsw
+    if psw==rpsw:
+        print('hello! %s' % name) #comparing to using "+", this statement saves more space
+        flag=1
+        break
+    else:
+        print('access denied, please try again!')
+        count=count+1
 else:
-    print('access denied, please try again!')
-    flag=False
+    print('system locked')
 
-if flag==True:
+if flag==1:
 #show their department after they login successfully
-    def case(var):
-        return {
-            'emy': 'admin',
-            'bob': 'member',
-            'cat': 'newer',
-        }.get(var,'error')
-
-    dpt=case(name)
+    dpt=depart[name]
     print('you are: %s' % dpt)
 ```
 ### tuple
