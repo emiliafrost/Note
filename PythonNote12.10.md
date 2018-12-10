@@ -42,3 +42,21 @@ for key in updatelist:
             if tempold[i] != tempnew[i]:
                 print(key,i,tempold[i],i,tempnew[i]) #show the same key and the updated part
 ```
+### a simple calculator, user can input expression in string
+```
+import re
+cal = input ("calculate: (for example: 3*5 )")
+matchobj = re.match(r'(\(*\d+\)*)([\+\-\*\/]\(*\d+\)*)+',cal,re.M|re.I)
+# (\(?\d+\)?) group(1), ([\+\-\*\\]\(?\d+\)?) group(2), = group(3)
+if matchobj:
+    inp = matchobj.group()
+    count0= inp.count('(')
+    count1= inp.count(')')
+    if count0==count1:
+        result = eval(inp)
+        print(result)
+    else: 
+        print ("unbalanced '(' or ')', please try again!")
+else:
+    print ("input error, please try again!")
+```
