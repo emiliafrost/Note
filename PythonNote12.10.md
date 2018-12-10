@@ -1,4 +1,4 @@
-### find what data is updated
+### find the difference(s)
 ```
 # original data
 old_dict = {
@@ -34,7 +34,7 @@ print (updatelist)
 for key in updatelist:
     tempold=old_dict[key] # { 'hostname':'c1', 'cpu_count': 2, 'mem_capicity': 80 }
     tempnew=new_dict[key] # { 'hostname':'c1', 'cpu_count': 2, 'mem_capicitys': 80 }
-    templist=tempold.keys() ^ tempnew.keys()
+    templist=tempold.keys() ^ tempnew.keys() #!!!find the different keys in two dictionary
     if len(templist) > 0: #which means that keys are updated
         print(key,templist) #show the updated key
     else: #if the key are the same, judge whether the values are updated
