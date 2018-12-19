@@ -6,14 +6,14 @@ import re
 # Create your views here.
 def index(request):
     if request.session.get('is_login', None):
-        return render(request, 'login/index.html', {'message': request.session.get('user_username')})
+        return render(request, 'login/index.html', {'message': 'hello! '+request.session.get('user_username')})
     return render(request,'login/index.html')
 
 
 def login(request):
     if request.session.get('is_login', None):
         # repeat login is not allowed
-        return redirect('/index/')
+        return render(request, 'login/index.html', {"message": "You've already logged in."})
     if request.method == "POST":
         # 这个None是指，当请求数据中没有键值时，不抛出异常而是返回我们指定的默认值None
         username = request.POST.get('username', None)
@@ -30,7 +30,7 @@ def login(request):
                         request.session['is_login'] = True
                         request.session['user_id'] = user.id
                         request.session['user_username'] = user.username
-                        return render(request, 'login/index.html', {"message": username})
+                        return render(request, 'login/index.html', {"message": "hello! "+username})
                     else:
                         message = "Wrong password, please try again."
                 except:
@@ -42,7 +42,7 @@ def login(request):
 def register(request):
     if request.session.get('is_login', None):
         # status login is not allowed
-        return redirect('/index/')
+        return render(request, 'login/index.html', {"message": "You've already logged in."})
     if request.method == "POST":
         # 这个None是指，当请求数据中没有键值时，不抛出异常而是返回我们指定的默认值None
         username = request.POST.get('username', None)

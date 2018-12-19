@@ -10,9 +10,11 @@
           <p>Customers can making a booking or see their ACK status after register or login</p>
           <p>Waiting for more information</p>
           <p>...</p>
-          <p>
-            <a class="btn btn-lg btn-primary" href="/login/" role="button">For more information, please register or login &raquo;</a>
-          </p>
+          {% if message %}
+              <p><em>{{ message }}</em></p>
+          {% else %}
+              <p><a class="btn btn-lg btn-primary" href="/login/" role="button">For more information, please register or login &raquo;</a></p>
+          {% endif %}
       </div>
 
       <div class="container">

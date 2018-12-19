@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <div style="margin: 20% 15%">
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <div style="float: left; margin: 5% 3%">
         <h2>Log in</h2>
         <em>Use a valid account to log in.</em><hr>
         <form action="/login/" method="POST">
@@ -23,7 +21,6 @@
             </p>
             <input type="submit" value="Login">
         </form>
-
     </div>
-</body>
-</html>
+
+{% endblock %}
