@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div style="margin: 20% 15%">
+        <h2>Log in</h2>
+        <em>Use a valid account to log in.</em><hr>
+        <form action="/login/" method="POST">
+            {% if message %}
+                <div style = "font-size: small; color: red" class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            {% csrf_token %}
+            <p>
+                <label for="id_username">Username</label>
+                <input type="text" id="id_username" name="username" placeholder="Username" autofocus required />
+            </p>
+            <p>
+                <label for="id_password">Password</label>
+                <input type="password" id="id_password" name="password" placeholder="Password" required />
+            </p>
+            <input type="submit" value="Login">
+        </form>
+
+    </div>
+</body>
+</html>
