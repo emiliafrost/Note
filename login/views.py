@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from . import models
 import re
 
@@ -18,6 +19,9 @@ def login(request):
         # 这个None是指，当请求数据中没有键值时，不抛出异常而是返回我们指定的默认值None
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
+        remember = request.POST.get('remember', None)
+        if remember:
+            request.session.set_expiry(60*60*24)
         if username and password:
             # username = username.strip()  # remove space in username
             umatch = re.match(r'^[\d\w_]{5,}$', username)
@@ -35,7 +39,7 @@ def login(request):
                         message = "Wrong password, please try again."
                 except:
                     message = "Username does not exist, please register."
-            return redirect('/index/')
+            return render(request, 'login/login.html', {"message": message})
     return render(request, 'login/login.html')
 
 
@@ -56,9 +60,9 @@ def register(request):
             message = "Passwords are different, please input again."
             return render(request, 'login/register.html', {'message': message})
         umatch = re.match(r'^[\d\w_]{5,}$', username)  # the length of username should >=5
-        pmatch = re.match(r'^([*?_\w]*\d+[*?_\w]*)$', password)  # the length of password should >6
-        phmatch = re.match(r'^\d{9,}$', phone)  # the length of phone should >=9
-        if umatch and pmatch and phmatch:  # if username, password and phone are valid
+        pmatch = re.match(r'^[*?_\w\d]*$', password)  # the length of password should >6
+        # phmatch = re.match(r'^\d{9,}$', phone)  # the length of phone should >=9
+        if umatch and pmatch:  # if username, password and phone are valid
             same_username = models.User.objects.filter(username=username)
             same_email = models.User.objects.filter(email=email)
             if same_username:
@@ -77,14 +81,14 @@ def register(request):
             new_user.password = password
             new_user.save()
             return redirect('/login/')
-        else:   # if username, password and phone are invalid
+        else:   # if one (or more) of username, password or phone is invalid
             message = ""
             if not umatch:
-                message = "Invalid username, can only contain A-Z, a-z, 0-9, the length should >= 5 \n "
+                message = "Invalid username, can only contain A-Z, a-z, 0-9, the length should >5. "
             if not pmatch:
-                message = message + "Invalid password, the length \n"
-            if not phmatch:
-                message = message + "Invalid phone number \n"
+                message = message + "Invalid password, can only contain A-Z, a-z, 0-9 and * _ ?, the length should >6"
+            # if not phmatch:
+                # message = message + "Invalid phone number, can only contain 0-9.  "
             return render(request, 'login/register.html', {'message': message})
     return render(request, 'login/register.html')
 

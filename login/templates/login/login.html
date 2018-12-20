@@ -7,21 +7,28 @@
       <div  style="float: left; margin: 5%" >
         <h2>Log in</h2>
         <em>Use a valid account to log in.</em><hr>
-        <form action="/login/" method="POST">
+        <form class="form-horizontal" action="/login/" method="POST" role="form">
             {% if message %}
-                <div style = "font-size: small; color: red" class="alert alert-warning">{{ message }}</div>
+                <div class="alert alert-warning">{{ message }}</div>
             {% endif %}
             {% csrf_token %}
             <p>
                 <label for="id_username">Username</label><br />
-                <input type="text" id="id_username" name="username" placeholder="Username" autofocus required />
+                <input class="form-control" type="text" id="id_username" name="username" placeholder="Username" style="width: 300px" autofocus required />
             </p>
             <p>
                 <label for="id_password">Password</label><br />
-                <input type="password" id="id_password" name="password" placeholder="Password" required />
+                <input class="form-control" type="password" id="id_password" name="password" placeholder="Password" style="width: 300px" required />
             </p>
-            <input type="submit" value="Login">
+            <input type="checkbox" id="id_remember" name="remember"> Remember me? <br /><br />
+            <input class="btn btn-default" type="submit" value="Login">
         </form>
+
+        <div style="float: left; margin: 10%">
+            <p>Still not a member?</p>
+            <p><a href="/register/">Click here to create a new account!</a></p>
+        </div>
+
       </div>
     </div> <!--end of container-->
 {% endblock %}
