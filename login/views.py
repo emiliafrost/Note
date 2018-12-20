@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from . import models
 import re
 
@@ -61,7 +60,6 @@ def register(request):
             return render(request, 'login/register.html', {'message': message})
         umatch = re.match(r'^[\d\w_]{5,}$', username)  # the length of username should >=5
         pmatch = re.match(r'^[*?_\w\d]*$', password)  # the length of password should >6
-        # phmatch = re.match(r'^\d{9,}$', phone)  # the length of phone should >=9
         if umatch and pmatch:  # if username, password and phone are valid
             same_username = models.User.objects.filter(username=username)
             same_email = models.User.objects.filter(email=email)
@@ -87,11 +85,8 @@ def register(request):
                 message = "Invalid username, can only contain A-Z, a-z, 0-9, the length should >5. "
             if not pmatch:
                 message = message + "Invalid password, can only contain A-Z, a-z, 0-9 and * _ ?, the length should >6"
-            # if not phmatch:
-                # message = message + "Invalid phone number, can only contain 0-9.  "
             return render(request, 'login/register.html', {'message': message})
     return render(request, 'login/register.html')
-
 
 def logout(request):
     if request.session.get('is_login', None):
