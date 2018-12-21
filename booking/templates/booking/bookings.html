@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>Bookings - Shipping Site</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <div style="margin-top: 75px;">
+          <h2>Booking List</h2>
+          <em>All your bookings are listed below, you can check existing bookings or create a new one</em><hr>
+          <p><a href="#create" class="btn btn-primary btn-sm" role="button">Create New</a></p>
+      </div>
+          <table class="table table-striped" style="width: 100%">
+              <thead>
+                <tr>
+                  <th>Create time</th>
+                  <th>#Boxes</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tanmay</td>
+                  <td>Bangalore</td>
+                  <td>560001</td>
+                </tr>
+              </tbody>
+          </table>
+    {% if  message  %}
+        <h2>Here</h2>
+    {% endif %}
+    </div>
+{% endblock %}

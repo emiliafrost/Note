@@ -20,7 +20,7 @@ def login(request):
         password = request.POST.get('password', None)
         remember = request.POST.get('remember', None)
         if remember:
-            request.session.set_expiry(60*60*24)
+            request.session.set_expiry(60*60*24*3)
         if username and password:
             # username = username.strip()  # remove space in username
             umatch = re.match(r'^[\d\w_]{5,}$', username)
