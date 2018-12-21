@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+ShippingSite/__pycache__/
+booking/__pycache__/
+booking/migrations/0001_initial.py
+booking/migrations/__pycache__/
+login/__pycache__/
+login/migrations/0003_remove_user_ctime.py
+login/migrations/__pycache__/
+db.sqlite3
+settings.py
