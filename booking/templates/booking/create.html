@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>Register - Shipping Site</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+         <div style="margin-top: 75px; width: 450px">
+             <h2>Create a booking</h2>
+             <em>Create your bookings here</em><hr>
+             <form class="form-horizontal" action="/create/" method="POST" role="form">
+                 {% csrf_token %}
+                 <label for="id_#boxes">#Boxes</label><br />
+                 <select class="form-control" id="id_#boxes" name="#boxes">
+                     {% for i in listi %}
+                         <option>{{ i }}</option>
+                     {% endfor %}
+                 </select>
+                 <p>
+                    <label for="id_daddress">Destination Address</label><br />
+                    <input class="form-control" maxlength="64" type="text" id="id_daddress" name="daddress" required />
+                 </p>
+                 <p>
+                    <label for="id_paddress">Pick Up Address</label><br />
+                    <input class="form-control" maxlength="64" type="text" id="id_paddress" name="paddress" required />
+                 </p>
+                 <label for="id_shipdate">Shipment Date</label><br />
+                 <select class="form-control" id="id_shipdate" name="shipdate">
+                     {% for date in listdate %}
+                         <option>{{date}}</option>
+                     {% endfor %}
+                 </select>
+                 <p>
+                    <label for="id_messages">Messages</label><br />
+                    <textarea class="form-control" rows="4" id="id_messages" name="messages"></textarea>
+                 </p>
+                 <input class="btn btn-default" type="submit" value="Create">
+                 <a href="/bookings/" class="btn btn-default" role="button">Cancel</a>
+             </form>
+         </div>
+    </div>
+
+{% endblock %}

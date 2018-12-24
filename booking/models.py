@@ -13,6 +13,6 @@ class Booking(models.Model):
     crttime = models.DateTimeField('Create time', auto_now_add=True)
 
     def __str__(self):
-        return self.username
+        return self.messages
 
 
