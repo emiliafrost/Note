@@ -57,11 +57,37 @@ def details(request, booking_id):
         # if the user is not log in
         return render(request, 'login/index.html', {"message": "Please login or register"})
     # if the user logged in
-    user = get_object_or_404(loginmodels.User, pk=request.session.get('user_id', None))
-    results = user.booking_set.get(pk=booking_id)  # results = current booking
-    temp = float(results.numboxes * 35)
-    price = ('%.2f' % temp)
-    return render(request, 'booking/details.html', {
-        'results': results,
-        'price': price,
+    current_user = request.session.get('user_username', None)
+    if current_user != 'susanto111':
+        user = get_object_or_404(loginmodels.User, pk=request.session.get('user_id', None))
+        results = user.booking_set.get(pk=booking_id)  # results = current booking
+        temp = float(results.numboxes * 35)
+        price = ('%.2f' % temp)
+        return render(request, 'booking/details.html', {
+            'results': results,
+            'price': price,
+        })
+    else:
+        results = models.Booking.objects.get(pk=booking_id)
+        temp = float(results.numboxes * 35)
+        price = ('%.2f' % temp)
+        return render(request, 'booking/details.html', {
+            'results': results,
+            'price': price,
+        })
+
+
+def ack(request):
+    if not request.session.get('is_login', None):
+        # if the user is not log in
+        return render(request, 'login/index.html', {"message": "Please login or register"})
+    # if the user logged in
+    current_user = request.session.get('user_username', None)
+    if current_user != 'susanto111':
+        # if the user is not susanto111
+        return render(request, 'login/index.html', {"message": "Access Denied"})
+    # if the user is administrator
+    allbookings = models.Booking.objects.order_by('-crttime')
+    return render(request, 'booking/ack.html', {
+        'allbookings': allbookings
     })

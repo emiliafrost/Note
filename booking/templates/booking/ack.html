@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>Ack - Shipping Site</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+         <div style="margin-top: 75px;">
+             <h2>Booking List</h2>
+             <em>All bookings are listed below, you can see details via "Details" </em><hr>
+         </div>
+             {% if allbookings %}
+                 <table class="table table-striped" style="width: 100%">
+                 <thead>
+                 <tr>
+                     <th>ID</th>
+                     <th>Create time</th>
+                     <th>Username</th>
+                     <th>Operations</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for booking in allbookings %}
+                     <tr>
+                     <td>{{ booking.id }}</td>
+                     <td>{{ booking.crttime }}</td>
+                     <td>{{ booking.username}}</td>
+                     <td><a href={% url 'bookingpart:details' booking.id %}>Details</a>
+                         /<a href='#'>Create Ack</a></td>
+                  </tr>
+                 {% endfor %}
+                 </tbody>
+                 </table>
+             {% else %}
+                 <p><em>You have no bookings currently</em></p>
+             {% endif %}
+
+    </div>  <!--end of container-->
+
+{% endblock %}
