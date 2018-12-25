@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title %}
-    <title>Register - Shipping Site</title>
+    <title>Create - Shipping Site</title>
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
          <div style="margin-top: 75px; width: 450px">
              <h2>Create a booking</h2>
              <em>Create your bookings here</em><hr>
-             <form class="form-horizontal" action="/create/" method="POST" role="form">
+             <form class="form-horizontal" action="/bookings/create/" method="POST" role="form">
                  {% csrf_token %}
                  <label for="id_#boxes">#Boxes</label><br />
                  <select class="form-control" id="id_#boxes" name="#boxes">

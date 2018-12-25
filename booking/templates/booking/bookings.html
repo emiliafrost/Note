@@ -11,7 +11,7 @@
       <div style="margin-top: 75px;">
           <h2>Booking List</h2>
           <em>All your bookings are listed below, you can check existing bookings or create a new one</em><hr>
-          <p><a href="/create/" class="btn btn-primary btn-sm" role="button">Create New</a></p>
+          <p><a href="create/" class="btn btn-primary btn-sm" role="button">Create New</a></p>
       </div>
           {% if results %}
               <table class="table table-striped" style="width: 100%">
@@ -22,18 +22,18 @@
                   <th>Details</th>
                 </tr>
               </thead>
-              <tbody>  <!--从这行开始是表格内容-->
-                  {% for booking in results %}
-                    <tr>
-                      <td>{{ booking.crttime }}</td>
+              <tbody>
+              {% for booking in results %}
+                  <tr>
+                  <td>{{ booking.crttime }}</td>
                       <td>{{ booking.numboxes }}</td>
-                      <td><a href="#">View</a></td>
-                    </tr>
-                  {% endfor %}
-              </tbody>  <!--表格内容结束-->
+                      <td><a href={% url 'bookingpart:details' booking.id %}>View Details</a></td>
+                  </tr>
+              {% endfor %}
+              </tbody>
               </table>
           {% else %}
-              <p><em>You have no bookings currently, click <a href="/create/">here</a> to create one right now.</em></p>
+              <p><em>You have no bookings currently, click <a href="create/">here</a> to create one right now.</em></p>
           {% endif %}
     </div>
 {% endblock %}

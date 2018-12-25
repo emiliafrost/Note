@@ -11,12 +11,11 @@ def bookings(request):
         # if the user is not log in
         return render(request, 'login/index.html', {"message": "Please login or register"})
     # if the user logged in
-    username = request.session.get('user_username', None)
-    user = get_object_or_404(loginmodels.User, username=username)
-    # 如果在已注册用户中找不到这个用户，就会报错
+    user_id = request.session.get('user_id', None)
+    user = get_object_or_404(loginmodels.User, pk=user_id)
+    # 如果在已注册用户中找不到这个用户，就会报错。目前只要正常登陆，就可以找到user
     try:
-        results = user.booking_set.all  # 不要再重复筛uername
-        print('yes')
+        results = user.booking_set.all  # results里是这个user的全部booking
         return render(request, 'booking/bookings.html', {'results': results})
     except:
         return render(request, 'booking/bookings.html')
@@ -53,5 +52,16 @@ def create(request):
     return render(request, 'booking/create.html', {'listdate': listdate, 'listi': listi})
 
 
-def bookingdetail(request):
-    return 0
+def details(request, booking_id):
+    if not request.session.get('is_login', None):
+        # if the user is not log in
+        return render(request, 'login/index.html', {"message": "Please login or register"})
+    # if the user logged in
+    user = get_object_or_404(loginmodels.User, pk=request.session.get('user_id', None))
+    results = user.booking_set.get(pk=booking_id)  # results = current booking
+    temp = float(results.numboxes * 35)
+    price = ('%.2f' % temp)
+    return render(request, 'booking/details.html', {
+        'results': results,
+        'price': price,
+    })

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>Details - Shipping Site</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+         <div style="margin-top: 75px; width: 470px">
+             <h2>Details</h2>
+             <em>Booking id: No.{{ results.id }}</em><hr>
+             <div style="float:left; width:200px" name="left">
+                 <p class="text-right"><strong>Number of Boxes:</strong></p>
+                 <p class="text-right"><strong>Destination Address:</strong></p>
+                 <p class="text-right"><strong>Pick Up Address:</strong></p>
+                 <p class="text-right"><strong>Possible Shipment date:</strong></p>
+                 <p class="text-right"><strong>Messages to Shipper:</strong></p>
+                 <br />
+                 <p class="text-right"><strong>Status:</strong></p>
+                 <p class="text-right"><strong>Price:</strong></p>
+                 <p class="text-right"><strong>HBL Number:</strong></p>
+                 <p class="text-right"><strong>Messages to Customer:</strong></p>
+             </div>
+             <div style="width:240px; float:right" name="right">
+                 <p>{{ results.numboxes }}</p>
+                 <p>{{ results.Daddress }}</p>
+                 <p>{{ results.Paddress }}</p>
+                 <p>{{ results.shipdate }}</p>
+                 <p>{{ results.messages }}</p>
+                 <br />
+                 <p> To be approved</p>
+                 <p> AUD {{ price }}</p>
+                 <p> 0000</p>
+                 <p> None</p>
+             </div>
+
+
+
+         </div>
+    </div> <!--end of container-->
+{% endblock %}
