@@ -33,6 +33,10 @@
               {% else %}
                   <input class="form-control" maxlength="64" type="text" id="id_pickup" value="{{ thisack.pickuptime }}" name="pickup"  required />
               {% endif %}
+              <label for="id_hbl">HBL number</label><br />
+              <input class="form-control" maxlength="128" type="text" id="id_hbl" value="{{ thisack.HBLnum }}" name="hbl" required />
+              <label for="id_messagec">Message to Customer</label><br />
+              <textarea class="form-control" rows="4" id="id_messagec" name="messages" >hello?</textarea>
           </form>
       </div>  <!--end of edit ack-->
 
