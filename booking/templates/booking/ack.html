@@ -20,6 +20,7 @@
                      <th>Create time</th>
                      <th>Username</th>
                      <th>Operations</th>
+                     <th>Status</th>
                  </tr>
                  </thead>
                  <tbody>
@@ -29,14 +30,18 @@
                      <td>{{ booking.crttime }}</td>
                      <td>{{ booking.username}}</td>
                      <td><a href={% url 'bookingpart:details' booking.id %}>Details</a>
-                         /<a href='#'>Create Ack</a></td>
-                  </tr>
+                         /<a href={% url 'bookingpart:ack-detail' booking.id %}>Ack</a></td>
+                     <td>{{ booking.ack_set.get}} </td>
+                     </tr>
                  {% endfor %}
                  </tbody>
                  </table>
              {% else %}
                  <p><em>You have no bookings currently</em></p>
              {% endif %}
+    {% if status %}
+        <p>hello</p>
+    {% endif %}
 
     </div>  <!--end of container-->
 

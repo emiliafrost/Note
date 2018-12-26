@@ -20,6 +20,7 @@
                  <p class="text-right"><strong>Messages to Shipper:</strong></p>
                  <br />
                  <p class="text-right"><strong>Status:</strong></p>
+                 <p class="text-right"><strong>Pick up date and time: </strong></p>
                  <p class="text-right"><strong>Price:</strong></p>
                  <p class="text-right"><strong>HBL Number:</strong></p>
                  <p class="text-right"><strong>Messages to Customer:</strong></p>
@@ -31,10 +32,20 @@
                  <p>{{ results.shipdate }}</p>
                  <p>{{ results.messages }}</p>
                  <br />
-                 <p> To be approved</p>
-                 <p> AUD {{ price }}</p>
-                 <p> 0000</p>
-                 <p> None</p>
+                 {% if acks %}
+                     <p> {{ acks.status }}</p>
+                     <p> {{ acks.pickuptime }}</p>
+                     <p> AUD {{ acks.cost }}</p>
+                     <p> {{ acks.HBLnum }}</p>
+                     <p> {{ acks.messagec }}</p>
+                 {% else %}
+                     <p> To be created </p>
+                     <p> To be created </p>
+                     <p> AUD {{ acks.cost }}</p>
+                     <p> To be created </p>
+                     <p> To be created </p>
+                 {% endif %}
+
              </div>
 
 

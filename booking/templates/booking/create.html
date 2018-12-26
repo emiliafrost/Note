@@ -28,12 +28,22 @@
                     <label for="id_paddress">Pick Up Address</label><br />
                     <input class="form-control" maxlength="64" type="text" id="id_paddress" name="paddress" required />
                  </p>
-                 <label for="id_shipdate">Shipment Date</label><br />
+                 <p>
+                 <label for="id_shipdate">Preferred Shipment Date</label><br />
                  <select class="form-control" id="id_shipdate" name="shipdate">
                      {% for date in listdate %}
                          <option>{{date}}</option>
                      {% endfor %}
                  </select>
+                 </p>
+                 <p>
+                 <label for="id_shipdate">Preferred Shipment Time</label><br />
+                 <select class="form-control" id="id_shiptime" name="shiptime">
+                     <option>9:00 - 11:00</option>
+                     <option>14:00 - 16:00</option>
+                     <option>16:00 - 18:00</option>
+                 </select>
+                 </p>
                  <p>
                     <label for="id_messages">Messages</label><br />
                     <textarea class="form-control" rows="4" id="id_messages" name="messages"></textarea>

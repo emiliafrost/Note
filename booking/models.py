@@ -18,9 +18,11 @@ class Booking(models.Model):
 
 class Ack(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
-    status = models.CharField('Status', max_length=64, default=' ')
+    status = models.CharField('Status', max_length=64, default='To be approved')
+    cost = models.CharField('Cost', max_length=64, default='35.00')
+    pickuptime = models.CharField('Pick up time', max_length=64, default=' ')
     HBLnum = models.CharField('HBL number', max_length=128, default=' ')
     messagec = models.CharField('Messages to customer', max_length=128, default=' ')
 
     def __str__(self):
-        return self.messagec
+        return self.status
