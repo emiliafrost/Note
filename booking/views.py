@@ -128,8 +128,40 @@ def ackdetail(request, booking_id):
         return render(request, 'login/index.html', {"message": "Access Denied"})
     thisbooking = models.Booking.objects.get(pk=booking_id)
     thisack = models.Ack.objects.get(booking=thisbooking)
+    if request.method == "POST":  # 如果从html有表单传入
+        status = request.POST.get('status', None)
+        pickuptime = request.POST.get('pickup', None)
+        HBLnum = request.POST.get('hbl', None)
+        messagec = request.POST.get('messagec', None)
+        if status != thisack.status or pickuptime != thisack.pickuptime or \
+                HBLnum != thisack.HBLnum or messagec != thisack.messagec:
+            thisack.status, thisack.pickuptime = status, pickuptime
+            thisack.HBLnum, thisack.messagec = HBLnum, messagec
+            thisack.save()
+            booking_user = thisbooking.username  # booking_user is the user of this booking
+            email = booking_user.email
+            send_email(status, pickuptime, HBLnum, messagec, email)
+        return redirect('/bookings/ack/')
     return render(request, 'booking/ackdetail.html', {
         'booking_id': booking_id,
         'thisack': thisack,
         'thisbooking': thisbooking,
     })
+
+
+def send_email(status, pickuptime, HBLnum, messagec, email):
+    from django.core.mail import EmailMultiAlternatives
+    subject, from_email = 'Ack Updated - from Shipping Site', 'forshippingsite@sina.com'
+    text_content = 'Dear Customer,' \
+                   'The shipper just updated the Ack of your booking.' \
+                   'Please login and check it via home - bookings - view details..'
+    html_content = '<p>Dear Customer, </p>' \
+                   '<p>&emsp;&emsp;The shipper just updated the Ack of your booking. The new Ack is listed below:' \
+                   '<br /> <strong>&emsp;&emsp;Status: </strong> {}'\
+                   '<br /> <strong>&emsp;&emsp;Pick up date and time: </strong> {}' \
+                   '<br /> <strong>&emsp;&emsp;HBL number: </strong> {}' \
+                   '<br /> <strong>&emsp;&emsp;Messages to customer: </strong> {}' \
+                   '<br /> &emsp;&emsp;For more details,please login and checkout.</p>'.format(status, pickuptime, HBLnum, messagec)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

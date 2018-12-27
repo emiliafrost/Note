@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from . import models
 import re
 
@@ -78,6 +79,7 @@ def register(request):
             new_user.email = email
             new_user.password = password
             new_user.save()
+            send_email(username, password, email)
             return redirect('/login/')
         else:   # if one (or more) of username, password or phone is invalid
             message = ""
@@ -92,3 +94,17 @@ def logout(request):
     if request.session.get('is_login', None):
         request.session.flush()
     return redirect("/index/")
+
+
+def send_email(username, password, email):
+    from django.core.mail import EmailMultiAlternatives
+    subject, from_email = 'Register successfully - from Shipping Site', 'forshippingsite@sina.com'
+    text_content = 'You have created an account successfully! Please remember your username and password.'
+    html_content = '<p>Dear Customer: </p>' \
+                   '<p>&emsp;&emsp;You have created an account successfully!</p>' \
+                   '<p>&emsp;&emsp;Please remember your username and password listed below:' \
+                   '<p> <strong>&emsp;&emsp;Username: </strong> {} </p>'\
+                   '<p> <strong>&emsp;&emsp;Password: </strong> {} </p>'.format(username, password)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

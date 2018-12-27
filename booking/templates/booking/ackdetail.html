@@ -15,8 +15,9 @@
       <div name="edit ack" style="width: 500px">
           <form class="form-horizontal" action="{% url 'bookingpart:ack-detail' booking_id %}" method="POST" role="form">
               {% csrf_token %}
-              <label for="id_status">Status</label><br />
-              <select class="form-control" id="id_status" name="status">
+            <p>
+              <label for="id_status">Status</label><br/>
+              <select class="form-control" id="id_status" name="status" >
                   <option>To be Approved</option>
                   <option>Request Accepted</option>
                   <option>Ready for Pick up</option>
@@ -27,6 +28,7 @@
                   <option>Delivered</option>
                   <option>Delivery Delayed</option>
               </select>
+              <span class="help-block">Current status: {{ thisack.status }}</span>
               <label for="id_pickup">Pick up date and time</label><br />
               {% if thisack.pickuptime == 'Null' %}
                   <input class="form-control" maxlength="64" type="text" id="id_pickup" value="{{ thisbooking.shipdate }}" name="pickup"  required />
@@ -36,7 +38,10 @@
               <label for="id_hbl">HBL number</label><br />
               <input class="form-control" maxlength="128" type="text" id="id_hbl" value="{{ thisack.HBLnum }}" name="hbl" required />
               <label for="id_messagec">Message to Customer</label><br />
-              <textarea class="form-control" rows="4" id="id_messagec" name="messages" >hello?</textarea>
+              <textarea class="form-control" rows="4" id="id_messagec" name="messagec" >{{ thisack.messagec }}</textarea>
+            </p>
+              <input class="btn btn-primary" type="submit" value="Submit">
+              <a href="/bookings/ack/" class="btn btn-default" role="button">Cancel</a>
           </form>
       </div>  <!--end of edit ack-->
 
