@@ -143,12 +143,12 @@ def send_email(status, pickuptime, HBLnum, messagec, email):
                    'The shipper just updated the Ack of your booking.' \
                    'Please login and check it via home - bookings - view details..'
     html_content = '<p>Dear Customer, </p>' \
-                   '<p>&emsp;&emsp;The shipper just updated the Ack of your booking. The new Ack is listed below:' \
-                   '<br /> <strong>&emsp;&emsp;Status: </strong> {}'\
-                   '<br /> <strong>&emsp;&emsp;Pick up date and time: </strong> {}' \
-                   '<br /> <strong>&emsp;&emsp;HBL number: </strong> {}' \
-                   '<br /> <strong>&emsp;&emsp;Messages to customer: </strong> {}' \
-                   '<br /> &emsp;&emsp;For more details,please login and checkout.</p>'.format(status, pickuptime, HBLnum, messagec)
+                   '<p>The shipper just updated the Ack of your booking. The new Ack is listed below: </p> ' \
+                   '<p> <strong>Status:</strong> {}</p>'\
+                   '<p> <strong>Pick up date and time: </strong> {} </p>' \
+                   '<p> <strong>HBL number: </strong> {} </p>' \
+                   '<p> <strong>Messages to customer: </strong> {} </p>' \
+                   '<p> For more details,please login and checkout.</p>'.format(status, pickuptime, HBLnum, messagec)
     msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
