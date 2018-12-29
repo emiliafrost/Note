@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>Error - Shipping Site</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+         <div style="margin-top: 75px;">
+             <h2 style="color: #ac2925"> Access Rejected</h2>
+             <p style="color: #ac2925"> {{ message }}</p>
+         </div>
+    </div>  <!--end of container-->
+
+{% endblock %}

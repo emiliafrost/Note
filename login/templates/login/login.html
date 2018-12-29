@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="container">
-      <div  style="float: left; margin: 5%" >
+      <div  style="float: left; margin-top: 75px; width: 400px" >
         <h2>Log in</h2>
         <em>Use a valid account to log in.</em><hr>
         <form class="form-horizontal" action="/login/" method="POST" role="form">
@@ -18,21 +18,20 @@
             {% csrf_token %}
             <p>
                 <label for="id_username">Username</label><br />
-                <input class="form-control" type="text" id="id_username" name="username" placeholder="Username" style="width: 300px" autofocus required />
+                <input class="form-control" minlength="5" maxlength="64" type="text" id="id_username" name="username" placeholder="Username" autofocus required />
             </p>
             <p>
                 <label for="id_password">Password</label><br />
-                <input class="form-control" type="password" id="id_password" name="password" placeholder="Password" style="width: 300px" required />
+                <input class="form-control" minlength="6" maxlength="32" type="password" id="id_password" name="password" placeholder="Password" required />
             </p>
-            <input type="checkbox" id="id_remember" name="remember"> Remember me? <br /><br />
-            <input class="btn btn-default" type="submit" value="Login">
+            <input type="checkbox" id="id_remember" name="remember">
+            <span>Remember me?</span><br/><br/>
+            <input class="btn btn-primary" type="submit" value="Login">
+            <a href="/index/" class="btn btn-default" role="button">Cancel</a>
+
         </form>
-
-        <div style="float: left; margin: 10%">
-            <p>Still not a member?</p>
-            <p><a href="/register/">Click here to create a new account!</a></p>
-        </div>
-
+        <br/><br/>
+        <p>Still not a member?<br/><a href="/register/">Click here to create a new account!</a></p>
       </div>
     </div> <!--end of container-->
 {% endblock %}

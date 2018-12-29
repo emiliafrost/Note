@@ -8,44 +8,45 @@
 
 {% block content %}
   <div class="container">
-    <div style="float: left; margin: 5%">
+    <div  style="float: left; margin-top: 75px; width: 400px" >
         <h2>Register</h2>
         <em>Create a new account.</em><hr>
         <form class="form-horizontal" action="/register/" method="POST" role="form">
             {% if message %}
-                <div style = "font-size: small; width: 450px" class="alert alert-warning">{{ message }}</div>
+                <div style = "font-size: small;" class="alert alert-warning">{{ message }}</div>
             {% endif %}
-
             {% csrf_token %}
             <p>
                 <label for="id_username">Username</label><br />
-                <input class="form-control" style="width: 350px " minlength="5" maxlength="64" type="text" id="id_username" name="username" autofocus required />
+                <input class="form-control" minlength="5" maxlength="64" type="text" id="id_username" name="username" autofocus required />
             </p>
             <p>
                 <label for="id_name">Name</label><br />
-                <input class="form-control" style="width: 350px " maxlength="64" type="text" id="id_name" name="name" required />
+                <input class="form-control" maxlength="64" type="text" id="id_name" name="name" required />
             </p>
             <p>
                 <label for="id_address">Home Address</label><br />
-                <input class="form-control" style="width: 350px " maxlength="64"type="text" id="id_address" name="address" required />
+                <input class="form-control" maxlength="128" type="text" id="id_address" name="address" required />
             </p>
             <p>
                 <label for="id_phone">Phone Number</label><br />
-                <input class="form-control" style="width: 350px " minlength="9" maxlength="12" type="text" id="id_phone" name="phone" onkeyup="value=value.replace(/[^\d+]/g,'')" required />
+                <input class="form-control" minlength="9" maxlength="16" type="text" id="id_phone" name="phone" onkeyup="value=value.replace(/[^\d+]/g,'')" required />
             </p>
             <p>
                 <label for="id_email">Email Address</label><br />
-                <input class="form-control" style="width: 350px " maxlength="64"type="email" id="id_email" name="email" required />
+                <input class="form-control" maxlength="64" type="email" id="id_email" name="email" required />
             </p>
             <p>
                 <label for="id_password">Password</label><br />
-                <input class="form-control" style="width: 350px " minlength="6" maxlength="32" type="password" id="id_password" name="password" autofocus required />
+                <input class="form-control" minlength="6" maxlength="32" type="password" id="id_password" name="password" autofocus required />
             </p>
              <p>
-                <label for="id_password2">Password Again</label><br />
-                <input class="form-control" style="width: 350px " minlength="6" maxlength="32" type="password" id="id_password2" name="password2" required />
+                <label for="id_password2">Confirm Your Password</label><br />
+                <input class="form-control" minlength="6" maxlength="32" type="password" id="id_password2" name="password2" required />
             </p>
-            <input class="btn btn-default" type="submit" value="Register">
+            <br/><br/>
+            <input class="btn btn-primary" type="submit" value="Submit">
+            <a href="/index/" class="btn btn-default" role="button">Cancel</a>
         </form>
     </div>
   </div>

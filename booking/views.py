@@ -9,13 +9,12 @@ from login import models as loginmodels
 def bookings(request):
     if not request.session.get('is_login', None):
         # if the user is not log in
-        return render(request, 'login/index.html', {"message": "Please login or register"})
+        return render(request, 'error.html', {"message": "Please login or register to access this resource"})
     # if the user logged in
     user_id = request.session.get('user_id', None)
     user = get_object_or_404(loginmodels.User, pk=user_id)
-    # 如果在已注册用户中找不到这个用户，就会报错。目前只要正常登陆，就可以找到user
     try:
-        results = user.booking_set.order_by('-crttime')  # results里是这个user的全部booking
+        results = user.booking_set.order_by('-crttime')  # results = all bookings of the current user
         return render(request, 'booking/bookings.html', {'results': results})
     except:
         return render(request, 'booking/bookings.html')
@@ -24,7 +23,7 @@ def bookings(request):
 def create(request):
     if not request.session.get('is_login', None):
         # if the user is not log in
-        return render(request, 'login/index.html', {"message": "Please login or register"})
+        return render(request, 'error.html', {"message": "Please login or register to access this resource"})
     listi = range(1, 11)  # i is used in #boxes
     listdate = []
     for i in range(5, 13):
@@ -64,53 +63,41 @@ def create(request):
 def details(request, booking_id):
     if not request.session.get('is_login', None):
         # if the user is not log in
-        return render(request, 'login/index.html', {"message": "Please login or register"})
+        return render(request, 'error.html', {"message": "Please login or register to access this resource"})
     # if the user logged in
     current_user = request.session.get('user_username', None)
     if current_user != 'susanto111':
         user = get_object_or_404(loginmodels.User, pk=request.session.get('user_id', None))
-        results = user.booking_set.get(pk=booking_id)  # results = current booking
-        temp = float(results.numboxes * 35)
-        price = ('%.2f' % temp)
         try:
+            results = user.booking_set.get(pk=booking_id)  # results = current booking
             acks = models.Ack.objects.get(booking=results)
             return render(request, 'booking/details.html', {
                 'results': results,
-                'price': price,
                 'acks': acks,
             })
         except:
-            return render(request, 'booking/details.html', {
-                'results': results,
-                'price': price,
-            })
+            return render(request, 'error.html', {"message": "You have no access to this resource."})
     else:
-        results = models.Booking.objects.get(pk=booking_id)
-        temp = float(results.numboxes * 35)
-        price = ('%.2f' % temp)
         try:
+            results = models.Booking.objects.get(pk=booking_id)
             acks = models.Ack.objects.get(booking=results)
             return render(request, 'booking/details.html', {
                 'results': results,
-                'price': price,
                 'acks': acks,
             })
         except:
-            return render(request, 'booking/details.html', {
-                'results': results,
-                'price': price,
-            })
+            return render(request, 'error.html', {"message": "This resource does not exist"})
 
 
 def ack(request):
     if not request.session.get('is_login', None):
         # if the user is not log in
-        return render(request, 'login/index.html', {"message": "Please login or register"})
+        return render(request, 'error.html', {"message": "Please login or register to access this resource"})
     # if the user logged in
     current_user = request.session.get('user_username', None)
     if current_user != 'susanto111':
         # if the user is not susanto111
-        return render(request, 'login/index.html', {"message": "Access Denied"})
+        return render(request, 'error.html', {"message": "You have no access to this resource"})
     # if the user is administrator
     allbookings = models.Booking.objects.order_by('-crttime')
     return render(request, 'booking/ack.html', {
@@ -121,14 +108,14 @@ def ack(request):
 def ackdetail(request, booking_id):
     if not request.session.get('is_login', None):
         # if the user is not log in
-        return render(request, 'login/index.html', {"message": "Please login or register"})
+        return render(request, 'error.html', {"message": "Please login or register to access this resource"})
     current_user = request.session.get('user_username', None)
     if current_user != 'susanto111':
         # if the user is not susanto111
-        return render(request, 'login/index.html', {"message": "Access Denied"})
+        return render(request, 'error.html', {"message": "You have no access to this resource"})
     thisbooking = models.Booking.objects.get(pk=booking_id)
     thisack = models.Ack.objects.get(booking=thisbooking)
-    if request.method == "POST":  # 如果从html有表单传入
+    if request.method == "POST":
         status = request.POST.get('status', None)
         pickuptime = request.POST.get('pickup', None)
         HBLnum = request.POST.get('hbl', None)

@@ -3,13 +3,47 @@
 {% load staticfiles %}
 
 {% block title %}
-    <title>Login - Shipping Site</title>
+    <title>Edit Profile - Shipping Site</title>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-      <div  style="float: left; margin: 5%" >
-          <
+      <div  style="float: left; margin-top: 75px; width: 650px" >
+          <h2>Account Management</h2>
+          <em>You can edit your personal profile or change your password on this page.</em><hr>
+          <div style="float: left; width: 200px" name="tablist">
+              <ul class="nav nav-pills nav-stacked" role="tablist" style="margin-top: 20px">
+                  <li class="active"><a href="{% url 'loginpart:profile' %}">Profile</a></li>
+                  <li><a href="{% url 'loginpart:change' %}">Change Password</a></li>
+              </ul>
+          </div>  <!--end of tablist-->
+          <div style="float: right; width: 400px">
+              <form class="form-horizontal" action="{% url 'loginpart:profile' %}" method="POST" role="form">
+                  {% if message %}
+                      <div style = "font-size: small;" class="alert alert-warning">{{ message }}</div>
+                  {% endif %}
+                  {% csrf_token %}
+                  <label for="id_username">Username</label><br/>
+                  <input class="form-control" id="id_username" type="text" placeholder="{{ user.username }}" disabled>
+
+                  <label for="id_name">Name</label><br />
+                  <input class="form-control" maxlength="64" type="text" id="id_name" name="name" value="{{ user.name }}" required/>
+
+                  <label for="id_address">Home Address</label><br />
+                  <input class="form-control" maxlength="128" type="text" id="id_address" name="address" value="{{ user.homeAddress }}" required />
+
+                  <label for="id_phone">Phone Number</label><br />
+                  <input class="form-control" minlength="9" maxlength="16" type="text" id="id_phone" name="phone"
+                         onkeyup="value=value.replace(/[^\d+]/g,'')"  value="{{ user.phoneNo }}" required />
+
+                  <label for="id_email">Email Address</label><br />
+                  <input class="form-control" maxlength="64" type="email" id="id_email" name="email" value="{{ user.email }}" required />
+
+                  <br/><br/>
+                  <input class="btn btn-primary" type="submit" value="Submit">&nbsp;
+                  <a href="{% url 'loginpart:index' %}" class="btn btn-default" role="button">Cancel</a>
+              </form>
+          </div>
       </div>
     </div>  <!--end of container-->
 {% endblock %}

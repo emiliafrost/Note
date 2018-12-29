@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>Change Password - Shipping Site</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <div  style="float: left; margin-top: 75px; width: 650px" >
+          <h2>Account Management</h2>
+          <em>You can edit your personal profile or change your password on this page.</em><hr>
+          <div style="float: left; width: 200px" name="tablist">
+              <ul class="nav nav-pills nav-stacked" role="tablist" style="margin-top: 20px">
+                  <li><a href="{% url 'loginpart:profile' %}">Profile</a></li>
+                  <li class="active"><a href="{% url 'loginpart:change' %}">Change Password</a></li>
+              </ul>
+          </div>  <!--end of tablist-->
+          <div style="float: right; width: 400px">
+              <form class="form-horizontal" action="{% url 'loginpart:change' %}" method="POST" role="form">
+                  {% if message %}
+                      <div style = "font-size: small;" class="alert alert-warning">{{ message }}</div>
+                  {% endif %}
+                  {% csrf_token %}
+                  <label for="id_prepassword">Previous Password</label><br />
+                  <input class="form-control" minlength="6" maxlength="32" type="password" id="id_prepassword" name="prepassword" required />
+
+                  <label for="id_newpassword">New Password</label><br />
+                  <input class="form-control" minlength="6" maxlength="32" type="password" id="id_prepassword" name="newpassword" autofocus required />
+
+                  <label for="id_password2">Confirm Your Password</label><br />
+                  <input class="form-control" minlength="6" maxlength="32" type="password" id="id_password2" name="password2" required />
+
+                  <br/><br/>
+                  <input class="btn btn-primary" type="submit" value="Submit">&ensp;
+                  <a href="{% url 'loginpart:index' %}" class="btn btn-default" role="button">Cancel</a>
+              </form>
+          </div>
+      </div>
+    </div>  <!--end of container-->
+{% endblock %}

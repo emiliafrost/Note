@@ -5,7 +5,7 @@ from booking import models as bookingmodels
 
 class BookingsInline (admin.StackedInline):
     model = bookingmodels.Booking
-    extra = 1
+    extra = 0
 
 
 class UserAdmin (admin.ModelAdmin):
